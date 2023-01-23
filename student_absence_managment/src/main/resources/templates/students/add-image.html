@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h4 class="card-title">ADD IMAGE TO <span th:text="${student.firstName}"></span></h4>
+                </div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data" method="post"
+                          novalidate th:action="@{/students/{sid}/add-image (sid=${student.sid})}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail">
+                                        <img alt="..." th:src="@{/img/image_placeholder.jpg}">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                    <div>
+                                      <span class="btn btn-rose btn-round btn-file">
+                                        <span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-exists">Change</span>
+                                        <input name="image" type="file"/>
+                                      </span>
+                                        <a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"
+                                           href="#"><i class="fa fa-times"></i> Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-fill btn-primary" type="submit">ADD</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

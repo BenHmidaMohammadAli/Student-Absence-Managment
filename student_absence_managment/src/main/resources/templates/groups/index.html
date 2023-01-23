@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">supervised_user_circle</i>
+                    </div>
+                    <h4 class="card-title">GROUPS</h4>
+                </div>
+                <div class="card-body">
+                    <div class="toolbar">
+                        <a class="btn btn-behance" rel="tooltip" title="ADD GROUP" th:href="@{/groups/add}">
+                            <i class="material-icons">add_circle</i>
+                            <div class="ripple-container"></div>
+                        </a>
+                        <br><br>
+                    </div>
+                    <div class="material-datatables">
+                        <table cellspacing="0" class="table table-striped table-no-bordered table-hover" id="datatables"
+                               style="width:100%" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Label</th>
+                                <th>Level</th>
+                                <th>Speciality</th>
+                                <th class="disabled-sorting text-right">Actions</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Label</th>
+                                <th>Level</th>
+                                <th>Speciality</th>
+                                <th class="disabled-sorting text-right">Actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="group : ${groups}">
+                                <td th:text="${group.name}"></td>
+                                <td th:text="${group.label}"></td>
+                                <td th:text="${group.level }"></td>
+                                <td th:text="${group.speciality }"></td>
+                                <td class="text-right">
+                                    <a class="btn btn-link btn-primary btn-just-icon like" rel="tooltip" title="ADD SUBJECTS TO GROUP"
+                                       th:href="@{/groups/{id}/add-subject (id=${group.id})}"><i class="material-icons">library_books</i></a>
+                                    <a class="btn btn-link btn-warning btn-just-icon like" rel="tooltip" title="ADD ABSENCES TO GROUP"
+                                       th:href="@{/groups/{id}/add-absences (id=${group.id})}"><i class="material-icons">ballot</i></a>
+                                    <a class="btn btn-link btn-success btn-just-icon like" rel="tooltip" title="VIEW GROUP"
+                                       th:href="@{/groups/{id}/show (id=${group.id})}"><i class="material-icons">remove_red_eye</i></a>
+                                    <a class="btn btn-link btn-info btn-just-icon edit" rel="tooltip" title="UPDATE GROUP"
+                                       th:href="@{/groups/{id}/update (id=${group.id})}"><i
+                                            class="material-icons">edit</i></a>
+                                    <a class="btn btn-link btn-danger btn-just-icon remove" rel="tooltip" title="REMOVE GROUP"
+                                       th:href="@{/groups/{id}/delete (id=${group.id})}"><i class="material-icons">delete</i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+</div>
+</body>
+</html>

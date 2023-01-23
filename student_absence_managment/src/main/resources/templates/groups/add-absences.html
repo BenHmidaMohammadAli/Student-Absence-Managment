@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">ballot</i>
+                    </div>
+                    <h4 class="card-title">ADD ABSENCES TO <span th:text="${group.name}"></span></h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/groups/{id}/add-absences (id=${group.id})}" th:object="${absence}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('subject') ? 'has-danger' : ''}">
+                                <select class="selectpicker" data-style="select-with-transition"
+                                        th:field="*{subject}" title="Choose Subject">
+                                    <option th:each="groupSubject : ${groupSubjects}" th:text="${groupSubject.subject.name}"
+                                            th:value="${groupSubject.subject.id}"></option>
+                                </select>
+                                <p class="text-danger small" th:each="error : ${#fields.errors('subject')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('startDate') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="startDate">Start Date</label>
+                                <input class="form-control datetimepicker" id="startDate" th:field="*{startDate}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('startDate')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('hours') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="hours">Hours</label>
+                                <input class="form-control" id="hours" th:field="*{hours}" type="number">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('hours')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <select class="selectpicker" data-style="select-with-transition"
+                                        th:name="students" title="Choose Absent Students" multiple>
+                                    <option th:each="student : ${students}" th:text="${student.firstName+' '+student.lastName}"
+                                            th:value="${student.sid}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-fill btn-primary" type="submit">ADD</button>
+                        <a class="btn btn-fill btn-behance" th:href="@{/groups}">FINISH</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

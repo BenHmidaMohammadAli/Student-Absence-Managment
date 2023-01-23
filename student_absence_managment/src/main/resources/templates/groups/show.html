@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">supervised_user_circle</i>
+                    </div>
+                    <h4 class="card-title">SHOW GROUP</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-header-text card-header-primary">
+                                    <div class="card-text">
+                                        <h4 class="card-title">INFORMATION</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr><td class="text-primary"><strong>Name:</strong></td> <td><span th:text="${group.name}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Label:</strong></td> <td><span th:text="${group.label}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Speciality:</strong></td> <td><span th:text="${group.speciality}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Level:</strong></td> <td><span th:text="${group.level}"></span></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-header-text card-header-primary">
+                                    <div class="card-text">
+                                        <h4 class="card-title">SUBJECTS</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text-primary">
+                                        <th>Name</th>
+                                        <th>Hours</th>
+                                        <th>DELETE</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="groupSubject : ${groupSubjects}">
+                                            <td th:text="${groupSubject.subject.name}"></td>
+                                            <td th:text="${groupSubject.hours}"></td>
+                                            <td>
+                                                <a class="btn btn-link btn-danger btn-just-icon remove"
+                                                   th:href="@{/groups/{gid}/subject/{sid}/delete (gid=${groupSubject.group.id}, sid=${groupSubject.subject.id})}"><i class="material-icons">delete</i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-text card-header-primary">
+                                    <div class="card-text">
+                                        <h4 class="card-title">ABSENCES</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th class="text-primary">Students\Subjects</th>
+                                            <th class="text-primary" th:each="groupSubject : ${groupSubjects}" th:text="${groupSubject.subject.name}"></th>
+                                            <th class="text-primary" >TOTAL</th>
+                                        </tr>
+                                        <tr th:each="student : ${students}">
+                                            <td th:text="${student.firstName+' '+student.lastName}"></td>
+                                            <td th:each="groupSubject : ${groupSubjects}"
+                                                th:with="res=${absenceService.hoursCountByStudentAndSubject(student.sid, groupSubject.subject.id)}"
+                                                th:text="${res+'h'}"
+                                                th:classappend="${res > groupSubject.hours * 0.4 ? 'bg-secondary text-light' : '' }"></td>
+                                            <td th:text="${absenceService.hoursCountByStudent(student.sid)+'h'}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-primary" >TOTAL</th>
+                                            <td th:each="groupSubject : ${groupSubjects}"
+                                                th:text="${absenceService.hoursCountByGroupAndSubject(group.id, groupSubject.subject.id)+'h'}"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

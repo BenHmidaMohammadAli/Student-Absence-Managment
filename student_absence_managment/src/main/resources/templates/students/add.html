@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h4 class="card-title">ADD STUDENT</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate th:action="@{/students/add}" th:object="${student}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('sid') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="sid">Student Identifier</label>
+                                <input class="form-control" id="sid" th:field="*{sid}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('sid')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('group') ? 'has-danger' : ''}">
+                                <select class="selectpicker" data-style="select-with-transition" th:field="*{group}"
+                                        title="Choose Group">
+                                    <option th:each="group : ${groups}" th:text="${group.name}"
+                                            th:value="${group.id}"></option>
+                                </select>
+                                <p class="text-danger small" th:each="error : ${#fields.errors('group')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('firstName') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="firstName">First Name</label>
+                                <input class="form-control" id="firstName" th:field="*{firstName}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('firstName')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('lastName') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="lastName">Last Name</label>
+                                <input class="form-control" id="lastName" th:field="*{lastName}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('email') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="email">Email</label>
+                                <input class="form-control" id="email" th:field="*{email}" type="email">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('email')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="bmd-label-floating" for="phone">Phone </label>
+                                <input class="form-control" id="phone" th:field="*{phone}" type="tel">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('dob') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="dob">Birthday</label>
+                                <input class="form-control datepicker" id="dob" th:field="*{dob}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('dob')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-fill btn-primary" type="submit">ADD</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

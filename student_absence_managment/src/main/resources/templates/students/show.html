@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h4 class="card-title">SHOW STUDENT</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-header-text card-header-primary">
+                                    <div class="card-text">
+                                        <h4 class="card-title">INFORMATION</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr><td class="text-primary"><strong>Student Identifier:</strong></td> <td><span th:text="${student.sid}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Full Name:</strong></td> <td><span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Birthday:</strong></td> <td><span th:text="${student.dob}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Email:</strong></td> <td><span th:text="${student.email}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Phone:</strong></td> <td><span th:text="${student.phone}"></span></td></tr>
+                                            <tr><td class="text-primary"><strong>Group:</strong></td> <td><a th:href="@{/groups/{id}/show (id=${student.group.id})}"><span th:text="${student.group.name}"></span></a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <br>
+                            <img th:if="${student.image}" th:src="@{/students/{sid}/display-image (sid=${student.sid})}" style="width: 100%;height: 500px;" class="img-fluid">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

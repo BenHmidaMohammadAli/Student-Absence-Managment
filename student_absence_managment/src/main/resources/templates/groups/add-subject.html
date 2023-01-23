@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">library_books</i>
+                    </div>
+                    <h4 class="card-title">ADD SUBJECT TO <span th:text="${group.name}"></span></h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/groups/{id}/add-subject (id=${group.id})}" th:object="${groupSubjectHolder}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('subject') ? 'has-danger' : ''}">
+                                <select class="selectpicker" data-style="select-with-transition"
+                                        th:field="*{subject}" title="Choose Subject">
+                                    <!-- th:name="subject" title="Choose Subject">-->
+                                    <option th:each="subject : ${subjects}" th:text="${subject.name}"
+                                            th:value="${subject.id}"></option>
+                                </select>
+                                <p class="text-danger small" th:each="error : ${#fields.errors('subject')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('hours') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="name">Hours</label>
+                                <input class="form-control" id="name" th:field="*{hours}" type="number">
+<!--                                <input class="form-control" id="name" th:name="hours" type="number">-->
+                                <p class="text-danger small" th:each="error : ${#fields.errors('hours')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-fill btn-primary" type="submit">ADD</button>
+                        <a class="btn btn-fill btn-behance" th:href="@{/groups}">FINISH</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

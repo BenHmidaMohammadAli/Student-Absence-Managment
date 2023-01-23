@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">supervised_user_circle</i>
+                    </div>
+                    <h4 class="card-title">ADD GROUP</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/groups/add}" th:object="${group}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('name') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="name">Name</label>
+                                <input class="form-control" id="name" th:field="*{name}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('name')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('label') ? 'has-danger' : ''}">
+                                <label class="bmd-label-floating" for="label">Label</label>
+                                <input class="form-control" id="label" th:field="*{label}" type="text">
+                                <p class="text-danger small" th:each="error : ${#fields.errors('label')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('speciality') ? 'has-danger' : ''}">
+                                <select class="selectpicker" data-style="select-with-transition"
+                                        th:field="*{speciality}" title="Choose Speciality">
+                                    <option th:each="speciality : ${specialities}" th:text="${speciality}"
+                                            th:value="${speciality}"></option>
+                                </select>
+                                <p class="text-danger small" th:each="error : ${#fields.errors('speciality')}" th:text="${error}"></p>
+                            </div>
+                            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('level') ? 'has-danger' : ''}">
+                                <select class="selectpicker" data-style="select-with-transition" th:field="*{level}"
+                                        title="Choose Level">
+                                    <option th:each="level : ${levels}" th:text="${level}" th:value="${level}"></option>
+                                </select>
+                                <p class="text-danger small" th:each="error : ${#fields.errors('level')}" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-fill btn-primary" type="submit">ADD</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
