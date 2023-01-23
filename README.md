@@ -30,8 +30,8 @@
 <img src="./img/D_UC.png">
 
 <h3 align="center"> ** Global application architecture  ** </h3>  </br>
-<img src="./img/Arch.png">
-<img src="./img/Arch2.png">
+<img src="./img/Arch.PNG">
+<img src="./img/Arch2.PNG">
 
 <h3 align="center"> ** Environment of development ** </h3>  </br>
-<img src="./img/Env.png">
+<img src="./img/Env.PNG">
